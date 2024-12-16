@@ -1,7 +1,4 @@
-# Code template by Jakob Aungiers 
-# Modified by: Sheikh Rabiul Islam
-# Date: 11/10/2017 
-# Purpose : stock market volatility prediction
+# code modified by Yaswanth Sai Killampudi
 import lstm
 import time
 import matplotlib.pyplot as plt
@@ -28,14 +25,13 @@ def plot_results_multiple(predicted_data, true_data, prediction_len,method,datas
     fig = plt.figure(facecolor='white')
     ax = fig.add_subplot(111)
     ax.plot(true_data, label='True Data')
-    #Pad the list of predictions to shift it in the graph to it's correct start
     pr_list=[]
     for i, data in enumerate(predicted_data):
         padding = [None for p in range(i * prediction_len)]
         plt.plot(padding + data, label='Prediction')
         pr_list.append(data)
         plt.legend()
-    pr_list_flat = list(itertools.chain.from_iterable(pr_list)) # converting a list of list in to a 1-d list
+    pr_list_flat = list(itertools.chain.from_iterable(pr_list))
     df_pr = pd.DataFrame(pr_list_flat)
     fname = 'output/' + company + '_' + dataset + '_' + method + '_pred.csv'
     df_pr.to_csv(fname, index=False, header=False)
@@ -45,15 +41,15 @@ def plot_results_multiple(predicted_data, true_data, prediction_len,method,datas
     plt.show()
     
 
-#Main Run Thread
+#Main method
 if __name__=='__main__':
 	global_start_time = time.time()
-	epochs  = 1   # changing epoc to larger values helps getting better prediction.
+	epochs  = 1   
 	seq_len = 50
 
-	company='gtxi'   #company_code
-	method='window'	# window, sequence, point
-	dataset='partial'   # full, partial
+	company='gtxi'  
+	method='window'	
+	dataset='partial' 
 
 
 	print('> Loading data... ')
