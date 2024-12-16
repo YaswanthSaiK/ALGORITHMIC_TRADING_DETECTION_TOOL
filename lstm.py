@@ -1,7 +1,4 @@
-# Code template by Jakob Aungiers 
-# Modified by: Sheikh Rabiul Islam
-# Date: 11/10/2017 
-# Purpose : stock market volatility prediction
+#code modified By Yaswanth Sai Killampudi
 import os
 import time
 import warnings
@@ -48,14 +45,13 @@ def normalise_windows(window_data):
         normalised_window = [((float(p) / float(window[0])) - 1) for p in window]
         normalised_data.append(normalised_window)
     return normalised_data
-"""
+
 def denormalise_windows(window_data):
     denormalised_data = []
     for window in window_data:
         denormalised_window = [(float(window[0]) * (float(p) + 1)) for p in window]
         denormalised_data.append(denormalised_window)
     return denormalised_data
-"""
 
 def build_model(layers):
     model = Sequential()
@@ -81,13 +77,11 @@ def build_model(layers):
     return model
 
 def predict_point_by_point(model, data):
-    #Predict each timestep given the last sequence of true data, in effect only predicting 1 step ahead each time
     predicted = model.predict(data)
     predicted = np.reshape(predicted, (predicted.size,))
     return predicted
 
 def predict_sequence_full(model, data, window_size):
-    #Shift the window by 1 new prediction each time, re-run predictions on new window
     curr_frame = data[0]
     predicted = []
     for i in range(len(data)):
@@ -97,7 +91,6 @@ def predict_sequence_full(model, data, window_size):
     return predicted
 
 def predict_sequences_multiple(model, data, window_size, prediction_len):
-    #Predict sequence of 50 steps before shifting prediction run forward by 50 steps
     prediction_seqs = []
     for i in range(int(len(data)/prediction_len)):
         curr_frame = data[i*prediction_len]
